@@ -64,6 +64,12 @@
     --input: 0 0% 16%;
     --ring: 0 86% 56%;
   }
+
+  /* Global Button Tap Animation */
+  button, 
+  [role="button"] {
+    @apply active:scale-[0.96] transition-transform duration-150 ease-out;
+  }
 }
 
 html {
