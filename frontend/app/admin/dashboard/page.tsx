@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Activity, ShieldCheck, Users, Stethoscope, BarChart3, Clock, AlertCircle, Calendar, FileText, ChevronDown, Phone, Mail } from 'lucide-react'
