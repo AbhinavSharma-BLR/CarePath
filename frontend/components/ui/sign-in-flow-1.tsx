@@ -295,42 +295,40 @@ export const SignInPage = ({ className, initialMode = 'login' }: SignInPageProps
 
   return (
     <div className={cn('flex w-full flex-col min-h-screen bg-[#080808] relative text-white', className)}>
-      {/* ThreeJS Shader Canvas Background */}
-      <CanvasErrorBoundary>
-        <div className="absolute inset-0 z-0">
-          {initialCanvasVisible && (
-            <div className="absolute inset-0">
-              <CanvasRevealEffect
-                animationSpeed={3}
-                containerClassName="bg-[#080808]"
-                colors={[
-                  [239, 48, 48],
-                  [217, 39, 39],
-                ]}
-                dotSize={5}
-                reverse={false}
-              />
-            </div>
-          )}
-          
-          {reverseCanvasVisible && (
-            <div className="absolute inset-0">
-              <CanvasRevealEffect
-                animationSpeed={4}
-                containerClassName="bg-[#080808]"
-                colors={[
-                  [239, 48, 48],
-                  [255, 100, 100],
-                ]}
-                dotSize={5}
-                reverse={true}
-              />
-            </div>
-          )}
-          
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(8,8,8,0.7)_0%,_#080808_100%)] pointer-events-none" />
-        </div>
-      </CanvasErrorBoundary>
+      {/* Animated CSS Background */}
+      <div className="absolute inset-0 z-0">
+        {initialCanvasVisible && (
+          <div className="absolute inset-0">
+            <CanvasRevealEffect
+              animationSpeed={3}
+              containerClassName="bg-[#080808]"
+              colors={[
+                [239, 48, 48],
+                [217, 39, 39],
+              ]}
+              dotSize={5}
+              reverse={false}
+            />
+          </div>
+        )}
+        
+        {reverseCanvasVisible && (
+          <div className="absolute inset-0">
+            <CanvasRevealEffect
+              animationSpeed={4}
+              containerClassName="bg-[#080808]"
+              colors={[
+                [239, 48, 48],
+                [255, 100, 100],
+              ]}
+              dotSize={5}
+              reverse={true}
+            />
+          </div>
+        )}
+        
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(8,8,8,0.7)_0%,_#080808_100%)] pointer-events-none" />
+      </div>
       
       {/* Content Layer */}
       <div className="relative z-10 flex flex-col min-h-screen">
