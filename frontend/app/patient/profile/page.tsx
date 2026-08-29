@@ -247,27 +247,13 @@ export default function PatientProfilePage() {
   // Handle Logout Confirmation & Cleanup
   const handleConfirmLogout = async () => {
     setIsLoggingOut(true)
-    try {
-      await fetch('/api/auth/logout', { method: 'POST' }).catch(() => null)
-    } finally {
-      // 1. Clear client storage
-      localStorage.removeItem('accessToken')
-      localStorage.removeItem('refreshToken')
-      localStorage.removeItem('carepath_session')
-      sessionStorage.clear()
-
-      // 2. Clear cookies
-      document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;'
-      document.cookie = 'carepath_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;'
-      document.cookie = 'refreshToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;'
-
-      setShowLogoutModal(false)
-      setIsLoggingOut(false)
-
-      // 3. Clean redirect to /login
-      router.push('/login')
-      router.refresh()
-    }
+    fetch('/api/auth/logout', { method: 'POST' }).catch(() => null)
+    
+    document.cookie = 'carepath_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
+    document.cookie = 'carepath_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
+    localStorage.clear()
+    router.replace('/login')
+    router.refresh()
   }
 
   return (

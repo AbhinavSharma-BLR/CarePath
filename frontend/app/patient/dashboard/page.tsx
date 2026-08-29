@@ -185,21 +185,13 @@ export default function PatientDashboard() {
       // Clear all state to prevent stale user data
       setPatientName(null)
       setPatientId('')
-      setAvatarUrl(null)
-      setAppointments([])
-
-      localStorage.removeItem('accessToken')
-      localStorage.removeItem('refreshToken')
-      localStorage.removeItem('carepath_session')
-      localStorage.removeItem('carepath_role')
-
-      document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;'
-      document.cookie = 'carepath_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;'
-      document.cookie = 'carepath_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;'
-
-      router.push('/login')
-      router.refresh()
-    }
+    fetch('/api/auth/logout', { method: 'POST' }).catch(() => null)
+    
+    document.cookie = 'carepath_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
+    document.cookie = 'carepath_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
+    localStorage.clear()
+    router.replace('/login')
+    router.refresh()
   }
 
   const initialLetter = patientName ? patientName.trim()[0].toUpperCase() : 'P'

@@ -683,7 +683,7 @@ export default function VideoConsultationRoomPage() {
 
           if (userRole === 'PATIENT') {
             console.log('[CONSULTATION LIFECYCLE] Redirecting patient automatically to /patient/dashboard...')
-            router.push('/patient/dashboard')
+            router.replace('/patient/dashboard')
           }
         }
 
@@ -870,9 +870,9 @@ export default function VideoConsultationRoomPage() {
 
     // Redirect instantly for ultra-fast UX
     if (userRole === 'PATIENT') {
-      router.push('/patient/dashboard')
+      router.replace('/patient/dashboard')
     } else {
-      router.push('/doctor/dashboard')
+      router.replace('/doctor/dashboard')
     }
   }
 
@@ -1079,7 +1079,7 @@ export default function VideoConsultationRoomPage() {
 
           <button
             type="button"
-            onClick={() => router.push(userRole === 'DOCTOR' ? '/doctor/dashboard' : '/patient/dashboard')}
+            onClick={() => router.replace(userRole === 'DOCTOR' ? '/doctor/dashboard' : '/patient/dashboard')}
             className="w-full py-3.5 rounded-2xl bg-[#EF3030] hover:bg-[#D92727] text-white font-bold text-xs shadow-xl shadow-red-500/20 transition-all uppercase tracking-wider cursor-pointer"
           >
             Back to Dashboard
