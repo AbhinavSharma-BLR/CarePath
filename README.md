@@ -58,24 +58,52 @@ The project is built on a modern **flattened Turborepo Workspace Architecture** 
 
 ## 🚀 How to Run Locally
 
-Follow these steps to get the platform up and running on your local machine.
+Follow these steps to clone the repository and run the platform on your local machine.
 
-### 1. Install Dependencies
-From the root directory of the project, install all workspace dependencies using `pnpm`:
+### 1. Clone the Repository
+Clone the project to your local machine:
 ```bash
+git clone https://github.com/AbhinavSharma-BLR/CarePath.git
+cd CarePath
+```
+
+### 2. Install Dependencies
+This project uses `pnpm` as the package manager. Install all workspace dependencies:
+```bash
+npm install -g pnpm  # If you don't have pnpm installed
 pnpm install
 ```
 
-### 2. Configure Environment Variables
-Ensure you have your `.env` files set up in the respective `frontend/` and `backend/` directories. You will need your Supabase keys, PostgreSQL connection URLs, and Storage credentials.
+### 3. Configure Environment Variables
+You need to set up environment variables for both the frontend and backend.
 
-### 3. Setup the Database
+**Create `frontend/.env`:**
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_API_URL=http://localhost:10000
+```
+
+**Create `backend/.env`:**
+```env
+DATABASE_URL=your_supabase_transaction_pooler_url
+DIRECT_URL=your_supabase_session_direct_url
+PORT=10000
+FRONTEND_URL=http://localhost:3000
+```
+
+### 4. Setup the Database
 Navigate to the root directory and push the Prisma schema (located in the `database` workspace) to your PostgreSQL instance:
 ```bash
 pnpm --filter @carepath/database run db:push
 ```
 
-### 4. Start the Development Servers
+*(Optional) Seed the database with initial data:*
+```bash
+pnpm --filter @carepath/backend run db:seed
+```
+
+### 5. Start the Development Servers
 Run the `dev` script from the root directory to spin up the entire monorepo simultaneously using Turborepo:
 ```bash
 pnpm dev
@@ -83,13 +111,13 @@ pnpm dev
 
 **Alternatively, you can run the services individually:**
 - **Frontend:** `cd frontend && pnpm dev` (Runs on `http://localhost:3000`)
-- **Backend:** `cd backend && pnpm dev` (Runs on `http://localhost:3001`)
+- **Backend:** `cd backend && pnpm dev` (Runs on `http://localhost:10000`)
 
-### 5. Explore the Platform
+### 6. Explore the Platform
 - Open [http://localhost:3000](http://localhost:3000) to view the main Landing Page.
-- View the custom 404 page by navigating to an invalid URL like `http://localhost:3000/this-does-not-exist`.
 - Try logging in to explore the Role-Based Dashboards!
 
 **Demo Accounts (Use OTP: `123456` for all logins):**
 - **Patient Account**: `9876543210`
 - **Doctor Account**: `9876543211`
+- **Admin Account**: `9876543212`
