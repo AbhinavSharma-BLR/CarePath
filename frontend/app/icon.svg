@@ -1,0 +1,52 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    {/* Metallic Base Gradient */}
+    <linearGradient id="cpMetalBase" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="30%" stop-color="#334155" />
+      <stop offset="60%" stop-color="#475569" />
+      <stop offset="85%" stop-color="#64748B" />
+      <stop offset="100%" stop-color="#94A3B8" />
+    </linearGradient>
+
+    {/* Specular Highlight Gradient */}
+    <linearGradient id="cpMetalHighlight" x1="20" y1="10" x2="80" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.7" />
+      <stop offset="40%" stop-color="#CBD5E1" stop-opacity="0.2" />
+      <stop offset="70%" stop-color="#64748B" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.5" />
+    </linearGradient>
+
+    {/* Inner Ring Metallic Sheen */}
+    <linearGradient id="cpInnerRing" x1="10" y1="90" x2="90" y2="10" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="50%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#64748B" />
+    </linearGradient>
+
+    {/* Subtle Blue Brand Accent Glow */}
+    <linearGradient id="cpAccentGlow" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+  </defs>
+
+  {/* Rounded Container Box with Metallic Border */}
+  <rect x="4" y="4" width="92" height="92" rx="22" fill="#0F172A" stroke="url(#cpMetalBase)" stroke-width="3" />
+
+  {/* Inner Metallic Bevel Boundary */}
+  <rect x="6" y="6" width="88" height="88" rx="20" fill="none" stroke="url(#cpMetalHighlight)" stroke-width="1" stroke-opacity="0.4" />
+
+  {/* Continuous Care Pathway Loop */}
+  <path d="M 32 24 C 20 24, 18 42, 18 50 C 18 58, 20 76, 32 76 L 68 76 C 80 76, 82 58, 82 50 C 82 42, 80 24, 68 24 Z" fill="none" stroke="url(#cpInnerRing)" stroke-width="4" stroke-linecap="round" />
+
+  {/* Integrated Metallic Plus (+) Symbol & Care Pathway Junction */}
+  <rect x="28" y="44" width="44" height="12" rx="6" fill="url(#cpMetalBase)" stroke="url(#cpMetalHighlight)" stroke-width="1" />
+  <rect x="44" y="28" width="12" height="44" rx="6" fill="url(#cpMetalBase)" stroke="url(#cpMetalHighlight)" stroke-width="1" />
+
+  {/* Center Intersection Specular Metallic Core */}
+  <rect x="44" y="44" width="12" height="12" rx="3" fill="url(#cpMetalHighlight)" fill-opacity="0.8" />
+
+  {/* Subtle Brand Accent Node Dot */}
+  <circle cx="68" cy="32" r="4.5" fill="url(#cpAccentGlow)" stroke="#60A5FA" stroke-width="1" />
+</svg>

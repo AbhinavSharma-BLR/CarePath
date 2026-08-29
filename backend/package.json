@@ -1,0 +1,42 @@
+{
+  "name": "@carepath/backend",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "db:seed": "tsx ../database/prisma/seed.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.584.0",
+    "@aws-sdk/s3-request-presigner": "^3.584.0",
+    "@carepath/ai": "workspace:*",
+    "@carepath/types": "workspace:*",
+    "@carepath/utils": "workspace:*",
+    "@fastify/cors": "^8.5.0",
+    "@fastify/helmet": "^11.1.1",
+    "@fastify/multipart": "^8.2.0",
+    "@fastify/rate-limit": "^9.1.0",
+    "@google/generative-ai": "^0.11.4",
+    "@carepath/database": "workspace:*",
+    "@react-pdf/renderer": "^4.6.1",
+    "@supabase/supabase-js": "^2.112.3",
+    "@upstash/redis": "^1.31.3",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.27.0",
+    "firebase-admin": "^14.3.0",
+    "jose": "^5.3.0",
+    "nanoid": "^5.0.7",
+    "pino": "^9.1.0",
+    "react": "^19.2.8",
+    "socket.io": "^4.7.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "tsx": "^4.11.0",
+    "typescript": "^5.4.5"
+  }
+}

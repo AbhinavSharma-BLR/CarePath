@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 97%; /* #F7F7F7 */
+    --foreground: 0 0% 7%; /* #111111 */
+
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 0 0% 7%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 7%;
+
+    --primary: 0 86% 56%; /* #EF3030 Primary Red */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 9%; /* #171717 */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 96%; /* #F5F5F5 */
+    --muted-foreground: 0 0% 40%; /* #666666 */
+
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 7%;
+
+    --destructive: 0 72% 51%; /* #DC2626 */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%; /* #E5E5E5 */
+    --input: 0 0% 90%;
+    --ring: 0 86% 56%;
+
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 0 0% 3%; /* #080808 */
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 9%; /* #171717 */
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 0 86% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 0% 16%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 16%; /* #2A2A2A */
+    --input: 0 0% 16%;
+    --ring: 0 86% 56%;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  overflow-x: clip;
+}
+
+body {
+  background-color: #F7F7F7;
+  color: #111111;
+  font-family: 'Inter', sans-serif;
+  overflow-x: clip;
+}
+
+.dark body {
+  background-color: #080808;
+  color: #FFFFFF;
+}
+
+.glass-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E5E5;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+}
+
+.dark-card {
+  background-color: #171717;
+  border: 1px solid #2A2A2A;
+  color: #FFFFFF;
+}
+
+.glass-header {
+  background-color: rgba(17, 17, 17, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid #2A2A2A;
+}
+
+.loader {
+  width: 44px;
+  height: 44px;
+  border: 4px solid #EF3030;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
