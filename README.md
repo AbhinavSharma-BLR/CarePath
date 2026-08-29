@@ -1,86 +1,90 @@
 # CarePath+ 🏥
 
-CarePath+ is a comprehensive virtual consultation and healthcare referral platform. It connects patients with doctors through a seamless virtual waiting room, real-time WebRTC video consultations, live chat, and a fully integrated digital prescription system. 
+**CarePath+** is a comprehensive virtual consultation and healthcare referral platform designed to seamlessly connect patients with doctors. The platform provides a modern healthcare experience through a virtual waiting room, real-time WebRTC video consultations, live chat, digital prescriptions, and secure medical record management.
 
-## 🛠 Tech Stack
+---
 
-*   **Frontend:** Next.js 14 (App Router), TypeScript, Tailwind CSS, shadcn/ui
-*   **Backend:** Fastify, Node.js
-*   **Database ORM:** Prisma
-*   **Database:** Supabase PostgreSQL
-*   **Authentication:** Supabase Auth (JWT)
-*   **Storage:** Supabase Storage (Prescriptions) / Cloudflare R2 (Medical Records)
-*   **Realtime:** Socket.io / Supabase Realtime
-*   **Video:** WebRTC (Peer-to-Peer)
+## 🌟 Key Features
 
-## 🚀 Implementation Plan (Start to End)
+The platform is packed with over 40 distinct features designed for a secure, fast, and high-quality telemedicine experience:
 
-The project is divided into 6 strategic phases. 
+### 🔹 Patient Experience
+- **Landing Page & Custom 404 Page**: A beautiful welcoming experience and a dedicated, user-friendly 404 error page.
+- **Role-Based Dashboards**: Tailored UI for Patients, Doctors, and Admins.
+- **Patient Profiles & Avatar Uploads**: Complete personal health tracking.
+- **Doctor Discovery**: Robust Doctor Search and real-time Availability checking.
+- **Appointment Booking**: Dynamic Slot Picker and instant Appointment Booking.
+- **Virtual Waiting Room**: Real-Time Queue Position tracking.
+- **Call Notifications**: Instant alerts when a Doctor Calls the Patient.
+- **Prescription Access**: Secure Patient Prescription Access & PDF downloads.
+- **Follow-Up Appointments**: Easy re-booking flows.
+- **Consultation History**: Historical logs of past visits.
+- **Secure Medical Records**: Medical Record Uploads and Secure Viewing.
 
-### ✅ Phase 1: Foundation & Auth (Completed)
-*   **Objective:** Project scaffolding, database schema, and user authentication.
-*   **Features:**
-    *   Turborepo monorepo setup (`apps/web`, `apps/api`).
-    *   Prisma database schema with PostgreSQL.
-    *   Supabase JWT Authentication and `middleware.ts` route guards.
-    *   Role-based redirects (Patient, Doctor, Admin).
+### 🔹 Doctor Experience
+- **Doctor Workspace**: Dedicated consultation control center.
+- **Patient Context Panel**: In-call access to patient history.
+- **Real-Time Consultations**: WebRTC Video Consultation & WebRTC Signaling.
+- **Camera/Microphone Controls**: Full A/V toggles during the call.
+- **Clinical Tools**: Autosaving Clinical Notes & Digital Prescription Builder.
+- **Prescription Generation**: Automated PDF generation with embedded Prescription Information.
+- **Doctor Access Control**: Permission-based access to patient medical records.
+- **Doctor Verification**: Admin approval workflow for new doctors.
 
-### ✅ Phase 2: Patient Profile & Doctor Discovery (Completed)
-*   **Objective:** Enable patients to find doctors and book appointments.
-*   **Features:**
-    *   Dynamic Patient and Doctor profile forms using `react-hook-form` and `zod`.
-    *   Doctor search and filtering (by specialty/availability).
-    *   Slot picker and Appointment booking system.
+### 🔹 Admin & Security
+- **Admin Dashboard**: Comprehensive platform analytics and user management.
+- **Emergency Detection**: Priority flagging for critical conditions.
+- **Notifications**: Push Notifications (FCM) & In-App Notifications.
+- **Security**: Rate Limiting, Audit Logs, and Secure Sign-in (Supabase).
+- **Route Guard / Middleware**: Robust protection for all private routes.
 
-### ✅ Phase 3: Queue & Video Consultation (Completed)
-*   **Objective:** Real-time virtual waiting room and video calling.
-*   **Features:**
-    *   Virtual queue system (`POST /queue/join`, `POST /queue/call`).
-    *   Real-time queue position tracking.
-    *   Browser-to-browser **WebRTC** video and audio.
-    *   Real-time text chat during consultations.
+---
 
-### ✅ Phase 4: Doctor Workspace & Prescriptions (Completed)
-*   **Objective:** In-consultation tools for doctors to treat patients.
-*   **Features:**
-    *   Patient context panel (shows history, allergies, meds).
-    *   Autosaving clinical notes.
-    *   Digital Prescription builder.
-    *   Server-side PDF generation (`@react-pdf/renderer`).
-    *   PDF uploads to Supabase Storage and short-lived signed URLs for patient downloads.
+## 🛠 Tech Stack & Architecture
 
-### 🟡 Phase 5: Admin Panel, Records & History (In Progress)
-*   **Objective:** Platform administration and patient medical history.
-*   **Features:**
-    *   Admin dashboard for platform analytics (Currently scaffolded).
-    *   Doctor verification workflows.
-    *   Patient Medical Record uploads (Backend API complete using Cloudflare R2; Frontend UI pending).
-    *   Full consultation history views.
+The project is built on a modern **flattened Turborepo Workspace Architecture** for optimal development speed and clear separation of concerns.
 
-### 🔴 Phase 6: Notifications, Polish & Security (Pending)
-*   **Objective:** Final production readiness.
-*   **Features:**
-    *   Push Notifications via Firebase Cloud Messaging (FCM) for queue alerts.
-    *   System audit logs for medical record access.
-    *   Rate limiting and API security hardening.
-    *   Final UX polish (animations, accessibility).
+- **`frontend/`**: Next.js 14 (App Router), TypeScript, Tailwind CSS, shadcn/ui
+- **`backend/`**: Fastify / Node.js
+- **`database/`**: Standalone Prisma ORM package with Supabase PostgreSQL
+- **`mobile/`**: React Native / Expo application
+- **Authentication**: Supabase Auth (JWT)
+- **Storage**: Supabase Storage / Cloudflare R2
+- **Real-Time Signaling**: Socket.io / Supabase Realtime
+- **Video & Audio**: Peer-to-Peer WebRTC
 
-## 💻 How to Run Locally
+---
 
-1. **Install dependencies:**
-   ```bash
-   pnpm install
-   ```
+## 🚀 How to Run Locally
 
-2. **Database Setup:**
-   Ensure `DATABASE_URL` is set in `apps/api/.env`, then push the schema:
-   ```bash
-   pnpm --filter @carepath/api run db:push
-   ```
+Follow these steps to get the platform up and running on your local machine.
 
-3. **Start the Development Servers:**
-   ```bash
-   pnpm dev
-   ```
-   * Frontend runs on `http://localhost:3000`
-   * Backend API runs on `http://localhost:3001`
+### 1. Install Dependencies
+From the root directory of the project, install all workspace dependencies using `pnpm`:
+```bash
+pnpm install
+```
+
+### 2. Configure Environment Variables
+Ensure you have your `.env` files set up in the respective `frontend/` and `backend/` directories. You will need your Supabase keys, PostgreSQL connection URLs, and Storage credentials.
+
+### 3. Setup the Database
+Navigate to the root directory and push the Prisma schema (located in the `database` workspace) to your PostgreSQL instance:
+```bash
+pnpm --filter @carepath/database run db:push
+```
+
+### 4. Start the Development Servers
+Run the `dev` script from the root directory to spin up the entire monorepo simultaneously using Turborepo:
+```bash
+pnpm dev
+```
+
+**Alternatively, you can run the services individually:**
+- **Frontend:** `cd frontend && pnpm dev` (Runs on `http://localhost:3000`)
+- **Backend:** `cd backend && pnpm dev` (Runs on `http://localhost:3001`)
+
+### 5. Explore the Platform
+- Open [http://localhost:3000](http://localhost:3000) to view the main Landing Page.
+- View the custom 404 page by navigating to an invalid URL like `http://localhost:3000/this-does-not-exist`.
+- Try logging in as a Doctor, Patient, or Admin to explore the Role-Based Dashboards!
