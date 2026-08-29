@@ -54,6 +54,20 @@ export async function updateSession(request: NextRequest) {
 
   // Role-Based Route Enforcement for Authenticated Users
   if (isAuthenticated) {
+    // Non-Admin attempting to access Admin route -> Redirect to respective dashboard
+    if (isAdminRoute && userRole !== 'ADMIN') {
+      const url = request.nextUrl.clone()
+      url.pathname = userRole === 'DOCTOR' ? '/doctor/dashboard' : '/patient/dashboard'
+      return NextResponse.redirect(url)
+    }
+
+    // Admin attempting to access non-admin protected routes -> Redirect to Admin dashboard
+    if ((isPatientRoute || isDoctorRoute) && userRole === 'ADMIN') {
+      const url = request.nextUrl.clone()
+      url.pathname = '/admin/dashboard'
+      return NextResponse.redirect(url)
+    }
+
     // Patient attempting to access Doctor protected route -> Redirect to Patient Dashboard
     if (isDoctorRoute && userRole === 'PATIENT') {
       const url = request.nextUrl.clone()
