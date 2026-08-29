@@ -17,6 +17,7 @@ interface SignInPageProps {
 export const CanvasRevealEffect = ({
   containerClassName,
   showGradient = true,
+  reverse = false,
 }: {
   animationSpeed?: number
   opacities?: number[]
