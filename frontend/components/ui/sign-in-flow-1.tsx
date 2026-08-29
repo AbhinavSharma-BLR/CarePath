@@ -30,11 +30,19 @@ export const CanvasRevealEffect = ({
     <div className={cn('h-full relative w-full overflow-hidden bg-[#080808]', containerClassName)}>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(239,48,48,0.15)_0%,_#080808_100%)] opacity-80 pointer-events-none" />
       {/* Animated subtle grid overlay */}
-      <div 
+      <motion.div 
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: 'linear-gradient(to right, rgba(239,48,48,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(239,48,48,0.05) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
+        }}
+        animate={{
+          backgroundPosition: reverse ? ['40px 40px', '0px 0px'] : ['0px 0px', '40px 40px'],
+        }}
+        transition={{
+          repeat: Infinity,
+          duration: 3,
+          ease: 'linear',
         }}
       />
       {showGradient && (
@@ -675,9 +683,9 @@ export const SignInPage = ({ className, initialMode = 'login' }: SignInPageProps
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         d="M5 13l4 4L19 7"
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.15, delay: 0.15 }}
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 0.35, delay: 0.1 }}
                       />
                     </motion.svg>
                   </motion.div>
