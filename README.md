@@ -87,4 +87,8 @@ pnpm dev
 ### 5. Explore the Platform
 - Open [http://localhost:3000](http://localhost:3000) to view the main Landing Page.
 - View the custom 404 page by navigating to an invalid URL like `http://localhost:3000/this-does-not-exist`.
-- Try logging in as a Doctor, Patient, or Admin to explore the Role-Based Dashboards!
+- Try logging in to explore the Role-Based Dashboards!
+
+**Demo Accounts (Use OTP: `123456` for all logins):**
+- **Patient Account**: `9876543210`
+- **Doctor Account**: `9876543211`

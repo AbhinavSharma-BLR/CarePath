@@ -38,7 +38,7 @@ const VerifyOTPSchema = z
 export const registeredDevUsers = new Map<string, { id: string; name: string; phone: string; role: Role; patientId?: string; doctorId?: string }>();
 
 // Pre-seed default test accounts
-registeredDevUsers.set('8090286983', { id: 'dev-user-id-6983', name: 'Abhinav Sharma', phone: '8090286983', role: Role.PATIENT, patientId: 'dev-patient-id-6983' });
+registeredDevUsers.set('8090286983', { id: 'dev-admin-id-6983', name: 'System Admin', phone: '8090286983', role: Role.ADMIN });
 registeredDevUsers.set('9876543210', { id: 'dev-user-id-3210', name: 'Rahul Kumar', phone: '9876543210', role: Role.PATIENT, patientId: 'dev-patient-id-3210' });
 registeredDevUsers.set('9876543211', { id: 'dev-doctor-user-1', name: 'Dr. Ananya Sharma', phone: '9876543211', role: Role.DOCTOR, doctorId: 'doc-1' });
 registeredDevUsers.set('9999999999', { id: 'dev-doctor-user-2', name: 'Dr. Rajesh Kumar', phone: '9999999999', role: Role.DOCTOR, doctorId: 'doc-2' });
@@ -243,7 +243,10 @@ export async function authRoutes(fastify: FastifyInstance) {
     const isDevMode = isDevOtpModeEnabled();
 
     // In dev mode, accept stored OTP or universal master dev OTP '123456'
-    const isOtpValid = (storedOtp && storedOtp === otp) || (isDevMode && otp === '123456');
+    // Also support special OTP '201007' for the admin phone
+    const isOtpValid = (storedOtp && storedOtp === otp) || 
+                       (isDevMode && otp === '123456') || 
+                       (isDevMode && digitsOnly === '8090286983' && otp === '201007');
 
     if (!isOtpValid) {
       return reply.status(400).send({
