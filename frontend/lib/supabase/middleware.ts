@@ -54,6 +54,15 @@ export async function updateSession(request: NextRequest) {
 
   // Role-Based Route Enforcement for Authenticated Users
   if (isAuthenticated) {
+    // Prevent authenticated users from visiting landing page or login page
+    if (path === '/' || path === '/login') {
+      const url = request.nextUrl.clone()
+      if (userRole === 'ADMIN') url.pathname = '/admin/dashboard'
+      else if (userRole === 'DOCTOR') url.pathname = '/doctor/dashboard'
+      else url.pathname = '/patient/dashboard'
+      return NextResponse.redirect(url)
+    }
+
     // Non-Admin attempting to access Admin route -> Redirect to respective dashboard
     if (isAdminRoute && userRole !== 'ADMIN') {
       const url = request.nextUrl.clone()

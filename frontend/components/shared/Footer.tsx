@@ -48,13 +48,13 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Portals</h4>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/patient/dashboard" className="text-[#D4D4D4] hover:text-[#EF3030] transition-colors">Patient Dashboard</Link>
+                <Link href="/login" className="text-[#D4D4D4] hover:text-[#EF3030] transition-colors">Patient Dashboard</Link>
               </li>
               <li>
-                <Link href="/doctor/dashboard" className="text-[#D4D4D4] hover:text-[#EF3030] transition-colors">Doctor Workspace</Link>
+                <Link href="/login" className="text-[#D4D4D4] hover:text-[#EF3030] transition-colors">Doctor Workspace</Link>
               </li>
               <li>
-                <Link href="/admin/dashboard" className="text-[#D4D4D4] hover:text-[#EF3030] transition-colors">Admin Portal</Link>
+                <Link href="/login" className="text-[#D4D4D4] hover:text-[#EF3030] transition-colors">Admin Portal</Link>
               </li>
               <li>
                 <Link href="/patient/records" className="text-[#D4D4D4] hover:text-[#EF3030] transition-colors">Medical Records</Link>
