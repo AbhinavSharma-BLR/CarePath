@@ -56,62 +56,48 @@ The project is built on a modern **flattened Turborepo Workspace Architecture** 
 
 ---
 
-## 🚀 How to Run Locally
+## 🚀 How to Run Locally (Zero-Config)
 
-Follow these steps to clone the repository and run the platform on your local machine.
+Follow these steps to clone the repository and run the entire platform locally on your machine. **No cloud accounts or keys are required.**
 
-### 1. Clone the Repository
-Clone the project to your local machine:
+### Prerequisites
+- Node.js & `pnpm` installed.
+- **[Docker Desktop](https://www.docker.com/products/docker-desktop/)** installed and running.
+
+### 1. Clone & Install Dependencies
 ```bash
 git clone https://github.com/AbhinavSharma-BLR/CarePath.git
 cd CarePath
-```
-
-### 2. Install Dependencies
-This project uses `pnpm` as the package manager. Install all workspace dependencies:
-```bash
-npm install -g pnpm  # If you don't have pnpm installed
+npm install -g pnpm
 pnpm install
 ```
 
-### 3. Configure Environment Variables
-You need to set up environment variables for both the frontend and backend.
-
-**Create `frontend/.env`:**
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-NEXT_PUBLIC_API_URL=http://localhost:10000
+### 2. Copy Default Environment Variables
+We have provided default offline environment variables. Run this command to copy them into place:
+```bash
+cp frontend/.env.example frontend/.env
+cp backend/.env.example backend/.env
 ```
 
-**Create `backend/.env`:**
-```env
-DATABASE_URL=your_supabase_transaction_pooler_url
-DIRECT_URL=your_supabase_session_direct_url
-PORT=10000
-FRONTEND_URL=http://localhost:3000
+### 3. Start Local Supabase (Docker)
+This will use Docker to spin up a local PostgreSQL database, Authentication, and Realtime server:
+```bash
+npx supabase start
 ```
+*(Note: The first time you run this, it may take a few minutes to download the Docker images).*
 
 ### 4. Setup the Database
-Navigate to the root directory and push the Prisma schema (located in the `database` workspace) to your PostgreSQL instance:
+Push the Prisma schema to your newly created local database and seed it with demo accounts:
 ```bash
 pnpm --filter @carepath/database run db:push
-```
-
-*(Optional) Seed the database with initial data:*
-```bash
 pnpm --filter @carepath/backend run db:seed
 ```
 
-### 5. Start the Development Servers
-Run the `dev` script from the root directory to spin up the entire monorepo simultaneously using Turborepo:
+### 5. Start the App
+Start both the Frontend and Backend simultaneously:
 ```bash
 pnpm dev
 ```
-
-**Alternatively, you can run the services individually:**
-- **Frontend:** `cd frontend && pnpm dev` (Runs on `http://localhost:3000`)
-- **Backend:** `cd backend && pnpm dev` (Runs on `http://localhost:10000`)
 
 ### 6. Explore the Platform
 - Open [http://localhost:3000](http://localhost:3000) to view the main Landing Page.
@@ -121,3 +107,5 @@ pnpm dev
 - **Patient Account**: `9876543210`
 - **Doctor Account**: `9876543211`
 - **Admin Account**: `9876543212`
+
+> **When you're done testing:** You can shut down the local database by running `npx supabase stop`.
