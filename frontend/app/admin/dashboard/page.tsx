@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Activity, ShieldCheck, Users, Stethoscope, BarChart3, Clock, AlertCircle, Calendar, FileText, ChevronDown, Phone, Mail } from 'lucide-react'
+import { Activity, ShieldCheck, Users, Stethoscope, BarChart3, Clock, AlertCircle, Calendar, FileText, ChevronDown, Phone, Mail, LogOut } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts'
 import { motion, AnimatePresence } from 'framer-motion'
 import { api } from '@/lib/api'
@@ -18,6 +19,21 @@ export default function AdminDashboard() {
   const [error, setError] = useState('')
   const [activeTab, setActiveTab] = useState<'overview' | 'patients' | 'doctors'>('overview')
   const [expandedUserId, setExpandedUserId] = useState<string | null>(null)
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const router = useRouter()
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true)
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' }).catch(() => null)
+    } finally {
+      document.cookie = 'carepath_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
+      document.cookie = 'carepath_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
+      localStorage.clear()
+      router.push('/login')
+      router.refresh()
+    }
+  }
 
   useEffect(() => {
     async function loadData() {
@@ -59,6 +75,14 @@ export default function AdminDashboard() {
              <Link href="/admin/doctors" className="text-white hover:text-[#EF3030] text-sm font-semibold transition-colors">
                Verify Doctors
              </Link>
+             <button 
+                disabled={isLoggingOut}
+                onClick={handleLogout}
+                className="flex items-center space-x-1.5 text-[#888888] hover:text-white transition-colors text-sm font-semibold disabled:opacity-50"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">{isLoggingOut ? 'Logging out...' : 'Logout'}</span>
+              </button>
           </div>
         </div>
       </header>
