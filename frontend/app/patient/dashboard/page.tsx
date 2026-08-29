@@ -19,6 +19,7 @@ import {
 import { io, Socket } from 'socket.io-client'
 import { motion } from 'framer-motion'
 import { LiquidButton } from '@/components/ui/button-1'
+import { CarePathLogo } from '@/components/brand/carepath-logo'
 
 interface Appointment {
   id: string
@@ -72,9 +73,14 @@ export default function PatientDashboard() {
           ...(token ? { authorization: `Bearer ${token}` } : {}),
         }
 
-        // 1. Fetch Profile
+        const [profRes, aptRes, rxRes] = await Promise.all([
+          fetch('/api/patient/profile', { headers, cache: 'no-store' }).catch(() => null),
+          fetch('/api/appointments', { headers, cache: 'no-store' }).catch(() => null),
+          fetch('/api/prescriptions', { headers, cache: 'no-store' }).catch(() => null)
+        ])
+
+        // 1. Process Profile
         let fetchedName: string | null = null
-        const profRes = await fetch('/api/patient/profile', { headers, cache: 'no-store' }).catch(() => null)
         if (profRes && profRes.ok) {
           const profData = await profRes.json()
           if (profData.success && profData.patient) {
@@ -100,8 +106,7 @@ export default function PatientDashboard() {
           setPatientName(fetchedName)
         }
 
-        // 2. Fetch Appointments
-        const aptRes = await fetch('/api/appointments', { headers, cache: 'no-store' }).catch(() => null)
+        // 2. Process Appointments
         if (aptRes && aptRes.ok) {
           const aptData = await aptRes.json()
           if (aptData.success && Array.isArray(aptData.appointments)) {
@@ -109,8 +114,7 @@ export default function PatientDashboard() {
           }
         }
 
-        // 3. Fetch Prescriptions
-        const rxRes = await fetch('/api/prescriptions', { headers, cache: 'no-store' }).catch(() => null)
+        // 3. Process Prescriptions
         if (rxRes && rxRes.ok) {
           const rxData = await rxRes.json()
           if (rxData.success && Array.isArray(rxData.prescriptions)) {
@@ -206,11 +210,10 @@ export default function PatientDashboard() {
       {/* Dashboard Header */}
       <header className="bg-[#111111] border-b border-[#2A2A2A] sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-9 h-9 rounded-xl bg-[#EF3030] flex items-center justify-center text-white">
-              <Activity className="w-5 h-5" />
-            </div>
-            <span className="font-bold text-lg text-white">CarePath+ Patient Portal</span>
+          <Link href="/" className="flex items-center space-x-4">
+            <CarePathLogo size="sm" showTagline={true} />
+            <div className="h-8 w-[1px] bg-[#2A2A2A] hidden sm:block"></div>
+            <span className="font-bold text-xs text-[#999999] hidden sm:block uppercase tracking-wider">Patient Portal</span>
           </Link>
 
           <div className="flex items-center space-x-4">

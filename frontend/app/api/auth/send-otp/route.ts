@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const fastifyUrl = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+    const fastifyUrl = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:3001'
 
     // Forward request to Fastify API
     let res = await fetch(`${fastifyUrl}/auth/send-otp`, {

@@ -1,9 +1,9 @@
+import 'dotenv/config';
 import fastify from 'fastify';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import multipart from '@fastify/multipart';
 import rateLimit from '@fastify/rate-limit';
-import dotenv from 'dotenv';
 import { authRoutes } from './modules/auth/auth.routes';
 import { patientRoutes } from './modules/patient/patient.routes';
 import { doctorRoutes } from './modules/doctor/doctor.routes';
@@ -20,7 +20,6 @@ import { adminRoutes } from './modules/admin/admin.routes';
 import { auditLoggerHook } from './middleware/audit';
 import { initSocketIO } from './lib/socket';
 
-dotenv.config();
 
 const server = fastify({
   logger: {
@@ -86,7 +85,7 @@ async function main() {
   await server.register(adminRoutes, { prefix: '/admin' });
 
   const PORT = parseInt(process.env.PORT || '3001', 10);
-  const HOST = process.env.HOST || '0.0.0.0';
+  const HOST = process.env.HOST || '::';
 
   try {
     await server.listen({ port: PORT, host: HOST });

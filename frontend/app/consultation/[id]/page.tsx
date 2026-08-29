@@ -683,9 +683,7 @@ export default function VideoConsultationRoomPage() {
 
           if (userRole === 'PATIENT') {
             console.log('[CONSULTATION LIFECYCLE] Redirecting patient automatically to /patient/dashboard...')
-            setTimeout(() => {
-              router.push('/patient/dashboard')
-            }, 1200)
+            router.push('/patient/dashboard')
           }
         }
 
@@ -829,57 +827,52 @@ export default function VideoConsultationRoomPage() {
   }, [isCompleted, consultationId, userRole])
 
   // Doctor / Patient Confirmed End Consultation Execution
-  const executeEndConsultation = async () => {
+  const executeEndConsultation = () => {
     setShowEndConfirmModal(false)
     console.log(`[CONSULTATION LIFECYCLE ${userRole}] User initiated consultation termination...`)
     consultationEndedRef.current = true
 
-    try {
-      const token = getValidJwtToken()
-      const res = await fetch(`/api/consultations/${consultationId}/end`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(token ? { authorization: `Bearer ${token}` } : {}),
-        },
-      }).catch(() => null)
+    const token = getValidJwtToken()
+    // Fire and forget fetch to avoid blocking the UI
+    fetch(`/api/consultations/${consultationId}/end`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { authorization: `Bearer ${token}` } : {}),
+      },
+      keepalive: true
+    }).catch(() => null)
 
-      if (res) {
-        console.log(`[CONSULTATION LIFECYCLE] Backend API marked status as COMPLETED`)
-      }
-
-      // Emit consultation:ended over Supabase Realtime
-      if (supabaseChannelRef.current) {
-        console.log(`[CONSULTATION LIFECYCLE] Broadcasting consultation:ended over Supabase Realtime channel consultation:${consultationId}`)
-        supabaseChannelRef.current.send({
-          type: 'broadcast',
-          event: 'consultation:ended',
-          payload: {
-            consultationId,
-            endedBy: userRole === 'DOCTOR' ? 'Doctor' : 'Patient',
-          },
-        })
-      }
-
-      // Emit consultation:end over Socket.io
-      if (socketRef.current) {
-        socketRef.current.emit('consultation:end', {
+    // Emit consultation:ended over Supabase Realtime
+    if (supabaseChannelRef.current) {
+      console.log(`[CONSULTATION LIFECYCLE] Broadcasting consultation:ended over Supabase Realtime channel consultation:${consultationId}`)
+      supabaseChannelRef.current.send({
+        type: 'broadcast',
+        event: 'consultation:ended',
+        payload: {
           consultationId,
           endedBy: userRole === 'DOCTOR' ? 'Doctor' : 'Patient',
-        })
-      }
-    } finally {
-      performWebRTCConnectionCleanup()
-      setIsCompleted(true)
-      setCompletedBy(userRole === 'DOCTOR' ? 'Doctor' : 'Patient')
+        },
+      })
+    }
 
-      setTimeout(() => {
-        if (userRole === 'PATIENT') {
-          router.push('/patient/dashboard')
-        } else {
-          router.push('/doctor/dashboard')
-        }
-      }, 1500)
+    // Emit consultation:end over Socket.io
+    if (socketRef.current) {
+      socketRef.current.emit('consultation:end', {
+        consultationId,
+        endedBy: userRole === 'DOCTOR' ? 'Doctor' : 'Patient',
+      })
+    }
+
+    performWebRTCConnectionCleanup()
+    setIsCompleted(true)
+    setCompletedBy(userRole === 'DOCTOR' ? 'Doctor' : 'Patient')
+
+    // Redirect instantly for ultra-fast UX
+    if (userRole === 'PATIENT') {
+      router.push('/patient/dashboard')
+    } else {
+      router.push('/doctor/dashboard')
     }
   }
 

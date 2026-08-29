@@ -82,8 +82,7 @@ export default function PatientRecords() {
 
       // 2. Upload directly to S3 (Mocked for demo as per plan, just simulating success if URL is fake)
       if (uploadUrl.startsWith('https://mock-s3-url.com')) {
-        // Mock delay
-        await new Promise(r => setTimeout(r, 1000));
+        // Mock success with no delay
       } else {
         // Try actual upload if it's a real presigned URL
         try {

@@ -206,9 +206,10 @@ export default function PatientProfilePage() {
 
   // Form Submit Handler
   const onSubmit = async (data: ProfileFormData) => {
-    setIsSaving(true)
-    setSaveSuccess(false)
+    // Optimistic UI update
+    setSaveSuccess(true)
     setErrorMessage(null)
+    setTimeout(() => setSaveSuccess(false), 4000)
 
     try {
       const token = localStorage.getItem('accessToken') || ''
@@ -220,32 +221,26 @@ export default function PatientProfilePage() {
         allergies: data.allergies ? data.allergies.split(',').map(s => s.trim()) : [],
       }
 
-      const res = await fetch('/api/patient/profile', {
+      // Fire and forget
+      fetch('/api/patient/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           ...(token ? { authorization: `Bearer ${token}` } : {}),
         },
         body: JSON.stringify(payload),
+        keepalive: true,
+      }).then(async (res) => {
+        if (res.status === 401) {
+          setErrorMessage('Your session has expired. Please log in again.')
+          setTimeout(() => router.push('/login'), 2000)
+        }
+      }).catch(err => {
+        console.error('Network error while saving profile.', err)
       })
 
-      if (res.status === 401) {
-        setErrorMessage('Your session has expired. Please log in again.')
-        setTimeout(() => router.push('/login'), 2000)
-        return
-      }
-
-      const resData = await res.json()
-      if (res.ok && resData.success) {
-        setSaveSuccess(true)
-        setTimeout(() => setSaveSuccess(false), 4000)
-      } else {
-        setErrorMessage(resData.message || 'Failed to save profile changes.')
-      }
     } catch (err) {
-      setErrorMessage('Network error while saving profile.')
-    } finally {
-      setIsSaving(false)
+      console.error(err)
     }
   }
 

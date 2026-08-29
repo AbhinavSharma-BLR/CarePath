@@ -197,9 +197,21 @@ export default function PatientDoctorDiscoveryPage() {
     setIsBooking(true)
     setBookingError(null)
 
+    // Optimistic UI Update
+    const optimisticApt = {
+      id: `apt-${Date.now()}`,
+      doctorName: selectedDoctor.name,
+      specialty: selectedDoctor.specialty,
+      date: selectedDate,
+      timeSlot: selectedSlot,
+      status: 'CONFIRMED',
+    }
+    setBookedAppointment(optimisticApt)
+    setIsBooking(false)
+
     try {
       const token = getValidJwtToken()
-      const res = await fetch('/api/appointments', {
+      fetch('/api/appointments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -210,33 +222,29 @@ export default function PatientDoctorDiscoveryPage() {
           date: selectedDate,
           timeSlot: selectedSlot,
         }),
+        keepalive: true,
+      }).then(async (res) => {
+        if (res.status === 409) {
+          setBookingError('Slot Unavailable. This slot has already been booked by another patient. Please choose another time slot.')
+          setBookedSlots(prev => [...prev, selectedSlot])
+          setSelectedSlot(null)
+          setBookedAppointment(null)
+        } else if (res.status === 401) {
+          setBookingError('Authentication session expired. Please log in again as a Patient.')
+          setBookedAppointment(null)
+        } else if (!res.ok) {
+          const data = await res.json().catch(() => ({}))
+          setBookingError(data.message || 'Failed to book appointment.')
+          setBookedAppointment(null)
+        }
+      }).catch(err => {
+        setBookingError('Network error while booking appointment.')
+        setBookedAppointment(null)
       })
 
-      const data = await res.json()
-
-      if (res.status === 409) {
-        setBookingError('Slot Unavailable. This slot has already been booked by another patient. Please choose another time slot.')
-        setBookedSlots(prev => [...prev, selectedSlot])
-        setSelectedSlot(null)
-      } else if (res.status === 401) {
-        setBookingError('Authentication session expired. Please log in again as a Patient.')
-      } else if (res.ok && data.success) {
-        const aptObj = data.appointment || {}
-        setBookedAppointment({
-          id: aptObj.id || `apt-${Date.now()}`,
-          doctorName: selectedDoctor.name,
-          specialty: selectedDoctor.specialty,
-          date: selectedDate,
-          timeSlot: selectedSlot,
-          status: 'CONFIRMED',
-        })
-      } else {
-        setBookingError(data.message || 'Failed to book appointment.')
-      }
     } catch (err) {
-      setBookingError('Network error while booking appointment.')
-    } finally {
-      setIsBooking(false)
+      setBookingError('Unexpected error while booking appointment.')
+      setBookedAppointment(null)
     }
   }
 

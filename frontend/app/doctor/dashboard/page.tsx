@@ -22,6 +22,7 @@ import {
 } from 'lucide-react'
 import { io, Socket } from 'socket.io-client'
 import { LiquidButton } from '@/components/ui/button-1'
+import { CarePathLogo } from '@/components/brand/carepath-logo'
 
 interface Appointment {
   id: string
@@ -241,13 +242,12 @@ export default function DoctorDashboard() {
       {/* Header Bar */}
       <header className="bg-[#111111] border-b border-[#2A2A2A] sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2.5">
-            <div className="w-9 h-9 rounded-xl bg-[#EF3030] flex items-center justify-center text-white font-bold shadow-md shadow-red-500/20">
-              <Activity className="w-5 h-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-base text-white leading-tight">CarePath+ Doctor Portal</span>
-              <span className="text-[10px] text-[#999999]">Practitioner Telemedicine Workspace</span>
+          <Link href="/" className="flex items-center space-x-4">
+            <CarePathLogo size="sm" showTagline={true} />
+            <div className="h-8 w-[1px] bg-[#2A2A2A] hidden sm:block"></div>
+            <div className="flex flex-col hidden sm:flex">
+              <span className="font-bold text-xs text-[#999999] uppercase tracking-wider leading-tight">Doctor Portal</span>
+              <span className="text-[10px] text-[#666666]">Practitioner Workspace</span>
             </div>
           </Link>
 

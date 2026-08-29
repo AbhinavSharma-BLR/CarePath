@@ -9,7 +9,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Activity, Phone, User, ArrowRight, CheckCircle2, AlertCircle, ArrowLeft, RefreshCw } from 'lucide-react'
 import { LiquidButton } from '@/components/ui/button-1'
-
+import { CarePathLogo } from '@/components/brand/carepath-logo'
 class CanvasErrorBoundary extends React.Component<
   { children: React.ReactNode },
   { hasError: boolean }
@@ -653,14 +653,8 @@ export const SignInPage = ({ className, initialMode = 'login' }: SignInPageProps
         {/* Top Navbar Header */}
         <header className="sticky top-0 z-50 bg-[#111111]/90 backdrop-blur-md border-b border-[#2A2A2A] px-6 py-4">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2.5">
-              <div className="w-10 h-10 rounded-xl bg-[#EF3030] flex items-center justify-center text-white shadow-md shadow-red-500/20">
-                <Activity className="w-6 h-6 stroke-[2.5]" />
-              </div>
-              <div>
-                <span className="text-xl font-bold tracking-tight text-white">CarePath</span>
-                <span className="block text-[10px] uppercase tracking-wider font-semibold text-[#999999] -mt-1">Telemedicine</span>
-              </div>
+            <Link href="/" className="flex items-center">
+              <CarePathLogo size="md" showTagline={true} />
             </Link>
 
             <div className="flex items-center space-x-4">
