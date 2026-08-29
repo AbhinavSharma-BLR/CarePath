@@ -29,21 +29,29 @@ export const CanvasRevealEffect = ({
 }) => {
   return (
     <div className={cn('h-full relative w-full overflow-hidden bg-[#080808]', containerClassName)}>
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes scrollGrid {
+          0% { background-position: 0px 0px; }
+          100% { background-position: 40px 40px; }
+        }
+        @keyframes scrollGridReverse {
+          0% { background-position: 40px 40px; }
+          100% { background-position: 0px 0px; }
+        }
+        .animate-grid-bg {
+          animation: scrollGrid 3s linear infinite;
+        }
+        .animate-grid-bg-reverse {
+          animation: scrollGridReverse 3s linear infinite;
+        }
+      `}} />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(239,48,48,0.15)_0%,_#080808_100%)] opacity-80 pointer-events-none" />
       {/* Animated subtle grid overlay */}
-      <motion.div 
-        className="absolute inset-0 pointer-events-none"
+      <div 
+        className={cn("absolute inset-0 pointer-events-none", reverse ? "animate-grid-bg-reverse" : "animate-grid-bg")}
         style={{
           backgroundImage: 'linear-gradient(to right, rgba(239,48,48,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(239,48,48,0.05) 1px, transparent 1px)',
           backgroundSize: '40px 40px',
-        }}
-        animate={{
-          backgroundPosition: reverse ? ['40px 40px', '0px 0px'] : ['0px 0px', '40px 40px'],
-        }}
-        transition={{
-          repeat: Infinity,
-          duration: 3,
-          ease: 'linear',
         }}
       />
       {showGradient && (
@@ -375,7 +383,7 @@ export const SignInPage = ({ className, initialMode = 'login' }: SignInPageProps
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.15 }}
+                  transition={{ duration: 0.25 }}
                   className="bg-white rounded-3xl p-8 border border-[#E5E5E5] shadow-2xl text-[#111111] space-y-6"
                 >
                   {/* Card Header */}
@@ -567,7 +575,7 @@ export const SignInPage = ({ className, initialMode = 'login' }: SignInPageProps
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.15 }}
+                  transition={{ duration: 0.25 }}
                   className="bg-white rounded-3xl p-8 border border-[#E5E5E5] shadow-2xl text-[#111111] space-y-6"
                 >
                   <div className="text-center space-y-1.5">
@@ -665,7 +673,7 @@ export const SignInPage = ({ className, initialMode = 'login' }: SignInPageProps
                   key="success-step"
                   initial={{ opacity: 0, scale: 0.95, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                   className="bg-white rounded-3xl p-8 border border-[#E5E5E5] shadow-2xl text-center space-y-6 text-[#111111]"
                 >
                   {/* GREEN CIRCLE WITH ANIMATED CHECK MARK */}
