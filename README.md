@@ -9,7 +9,8 @@
 The platform is packed with over 40 distinct features designed for a secure, fast, and high-quality telemedicine experience:
 
 ### 🔹 Patient Experience
-- **Landing Page & Custom 404 Page**: A beautiful welcoming experience and a dedicated, user-friendly 404 error page.
+- **Landing Page**: A beautiful, welcoming experience setting the tone for virtual care.
+- **Custom 404 Page**: A beautifully designed "Page Not Found" screen featuring the CarePath+ logo, clear error messaging, and a quick-return button to the dashboard to prevent users from getting lost.
 - **Role-Based Dashboards**: Tailored UI for Patients, Doctors, and Admins.
 - **Patient Profiles & Avatar Uploads**: Complete personal health tracking.
 - **Doctor Discovery**: Robust Doctor Search and real-time Availability checking.
