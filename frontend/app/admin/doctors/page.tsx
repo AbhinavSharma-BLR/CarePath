@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Activity, ShieldCheck, Stethoscope, ArrowLeft, CheckCircle2, AlertCircle } from 'lucide-react'
 import { api, getErrorMessage } from '@/lib/api'
+import { CarePathLogo } from '@/components/brand/carepath-logo'
 
 interface PendingDoctor {
   id: string
@@ -65,14 +66,12 @@ export default function AdminVerifyDoctors() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/admin/dashboard" className="flex items-center space-x-2 text-white hover:text-[#EF3030] transition-colors">
             <ArrowLeft className="w-5 h-5" />
-            <span className="font-bold text-sm">Back to Dashboard</span>
+            <span className="font-bold text-sm hidden sm:inline">Back</span>
           </Link>
 
-          <div className="flex items-center space-x-2 text-white">
-            <div className="w-9 h-9 rounded-xl bg-[#EF3030] flex items-center justify-center">
-              <Stethoscope className="w-5 h-5" />
-            </div>
-            <span className="font-bold text-lg hidden sm:inline">Doctor Verification</span>
+          <div className="flex items-center">
+            <CarePathLogo size="sm" showTagline={false} />
+            <span className="ml-3 font-bold text-sm text-[#EF3030] bg-[#EF3030]/10 px-2 py-0.5 rounded-md hidden sm:inline-block">Admin Verification</span>
           </div>
         </div>
       </header>

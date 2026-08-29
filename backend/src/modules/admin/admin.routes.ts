@@ -94,4 +94,46 @@ export async function adminRoutes(fastify: FastifyInstance) {
       return reply.status(500).send({ success: false, error: 'Internal Server Error' });
     }
   });
+
+  // GET /admin/users/patients
+  fastify.get('/users/patients', async (request, reply) => {
+    try {
+      const patients = await prisma.patient.findMany({
+        include: {
+          user: true,
+          consultations: {
+            include: { doctor: { include: { user: true } } },
+            orderBy: { startedAt: 'desc' },
+          },
+          prescriptions: true,
+          reports: true,
+        },
+      });
+      return reply.send({ success: true, patients });
+    } catch (e: any) {
+      console.error(e);
+      return reply.status(500).send({ success: false, error: 'Internal Server Error' });
+    }
+  });
+
+  // GET /admin/users/doctors
+  fastify.get('/users/doctors', async (request, reply) => {
+    try {
+      const doctors = await prisma.doctor.findMany({
+        include: {
+          user: true,
+          facility: true,
+          consultations: {
+            include: { patient: { include: { user: true } } },
+            orderBy: { startedAt: 'desc' },
+          },
+          prescriptions: true,
+        },
+      });
+      return reply.send({ success: true, doctors });
+    } catch (e: any) {
+      console.error(e);
+      return reply.status(500).send({ success: false, error: 'Internal Server Error' });
+    }
+  });
 }

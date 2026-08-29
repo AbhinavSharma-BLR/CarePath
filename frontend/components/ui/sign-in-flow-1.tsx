@@ -567,7 +567,7 @@ export const SignInPage = ({ className, initialMode = 'login' }: SignInPageProps
       setTimeout(() => setInitialCanvasVisible(false), 50)
       setTimeout(() => setStep('success'), 300)
 
-      const targetDashboard = userRole === 'DOCTOR' ? '/doctor/dashboard' : '/patient/dashboard'
+      const targetDashboard = userRole === 'ADMIN' ? '/admin/dashboard' : userRole === 'DOCTOR' ? '/doctor/dashboard' : '/patient/dashboard'
       setTimeout(() => {
         router.push(targetDashboard)
         router.refresh()

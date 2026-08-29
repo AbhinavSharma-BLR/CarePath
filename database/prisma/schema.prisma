@@ -78,6 +78,7 @@ model Patient {
   assistanceReqs   AssistanceRequest[]
   appointments     Appointment[]
   prescriptions    Prescription[]
+  consultations    Consultation[]
 }
 
 model CareJourney {
@@ -168,6 +169,7 @@ model Doctor {
   appointments    Appointment[]
   availabilities  DoctorAvailability[]
   prescriptions   Prescription[]
+  consultations   Consultation[]
 }
 
 model DoctorAvailability {
@@ -248,7 +250,9 @@ model Consultation {
   id            String    @id @default(cuid())
   appointmentId String    @unique
   patientId     String
+  patient       Patient   @relation(fields: [patientId], references: [id], onDelete: Cascade)
   doctorId      String
+  doctor        Doctor    @relation(fields: [doctorId], references: [id], onDelete: Cascade)
   status        String    @default("WAITING") // WAITING, CALLING, CONNECTING, CONNECTED, ENDED, COMPLETED
   startedAt     DateTime  @default(now())
   endedAt       DateTime?
