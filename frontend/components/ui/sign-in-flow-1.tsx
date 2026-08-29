@@ -366,7 +366,7 @@ export const SignInPage = ({ className, initialMode = 'login' }: SignInPageProps
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.15 }}
                   className="bg-white rounded-3xl p-8 border border-[#E5E5E5] shadow-2xl text-[#111111] space-y-6"
                 >
                   {/* Card Header */}
@@ -558,7 +558,7 @@ export const SignInPage = ({ className, initialMode = 'login' }: SignInPageProps
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.15 }}
                   className="bg-white rounded-3xl p-8 border border-[#E5E5E5] shadow-2xl text-[#111111] space-y-6"
                 >
                   <div className="text-center space-y-1.5">
@@ -654,9 +654,9 @@ export const SignInPage = ({ className, initialMode = 'login' }: SignInPageProps
               {step === 'success' && (
                 <motion.div 
                   key="success-step"
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
                   className="bg-white rounded-3xl p-8 border border-[#E5E5E5] shadow-2xl text-center space-y-6 text-[#111111]"
                 >
                   {/* GREEN CIRCLE WITH ANIMATED CHECK MARK */}
@@ -675,9 +675,9 @@ export const SignInPage = ({ className, initialMode = 'login' }: SignInPageProps
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         d="M5 13l4 4L19 7"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: 1 }}
-                        transition={{ duration: 0.5, delay: 0.25 }}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.15, delay: 0.15 }}
                       />
                     </motion.svg>
                   </motion.div>
