@@ -61,7 +61,9 @@ The project is built on a modern **flattened Turborepo Workspace Architecture** 
 Follow these quick steps to get CarePath running on your machine. **No Docker installation or cloud configuration is required**—the project comes pre-configured with a live Supabase database and authentication.
 
 ### Prerequisites
-- **Node.js**: v20.0.0 or higher
+- **Node.js**: v20.0.0 or higher.
+  - **Download:** [nodejs.org](https://nodejs.org/)
+  - **Or via NVM:** `nvm install 20 && nvm use 20`
 - **pnpm**: v8.0.0 or higher (`npm install -g pnpm`)
 
 ---
