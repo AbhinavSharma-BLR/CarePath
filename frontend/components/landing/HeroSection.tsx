@@ -34,15 +34,15 @@ export function HeroSection() {
   const floatAnimationLeft = shouldReduceMotion
     ? {}
     : {
-        y: [0, -4, 0],
-        transition: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
+        y: [0, -8, 0],
+        transition: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
       }
 
   const floatAnimationRight = shouldReduceMotion
     ? {}
     : {
-        y: [0, 4, 0],
-        transition: { duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 },
+        y: [0, 8, 0],
+        transition: { duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 0.2 },
       }
 
   return (

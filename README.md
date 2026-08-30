@@ -84,7 +84,7 @@ pnpm setup
 ```
 *(Alternatively, you can manually copy `.env.example` files to `.env` in `backend/`, `frontend/`, and `database/`).*
 
-**IMPORTANT:** Open the newly created `.env` files in `backend/`, `frontend/`, and `database/` and replace the placeholder values (`your_supabase_...`) with your actual Supabase project credentials.
+**IMPORTANT:** The `.env.example` files come pre-configured with the live database URLs, but for security, the `SUPABASE_SERVICE_ROLE_KEY` is missing. Ask the repository owner for this key and add it to the newly created `.env` files in `backend/` and `frontend/` replacing `<ASK_OWNER_FOR_SECRET_KEY>`.
 
 #### 3. Setup the Database
 Push the Prisma schema to your connected database and seed it with demo accounts:

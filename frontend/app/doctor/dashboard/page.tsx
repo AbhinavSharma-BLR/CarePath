@@ -216,13 +216,13 @@ export default function DoctorDashboard() {
   // Logout
   const handleLogout = async () => {
     setIsLoggingOut(true)
-    fetch('/api/auth/logout', { method: 'POST' }).catch(() => null)
+    await fetch('/api/auth/logout', { method: 'POST' }).catch(() => null)
     
+    document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
     document.cookie = 'carepath_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
     document.cookie = 'carepath_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
     localStorage.clear()
-    router.replace('/login')
-    router.refresh()
+    window.location.href = '/login'
   }
 
   const activeQueue = appointments.filter((a) => a.status !== 'COMPLETED' && a.status !== 'CANCELLED')
