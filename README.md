@@ -56,56 +56,80 @@ The project is built on a modern **flattened Turborepo Workspace Architecture** 
 
 ---
 
-## 🚀 How to Run Locally (Zero-Config)
+## 🚀 How to Run Locally
 
-Follow these steps to clone the repository and run the entire platform locally on your machine. **No cloud accounts or keys are required.**
+Follow these quick steps to get CarePath running on your machine. **No Docker installation or cloud configuration is required**—the project comes pre-configured with a live Supabase database and authentication.
 
 ### Prerequisites
-- Node.js & `pnpm` installed.
-- **[Docker Desktop](https://www.docker.com/products/docker-desktop/)** installed and running.
+- **Node.js**: v20.0.0 or higher
+- **pnpm**: v8.0.0 or higher (`npm install -g pnpm`)
 
-### 1. Clone & Install Dependencies
+---
+
+### Quick Start (Zero-Docker / Ready to Run)
+
+#### 1. Clone & Install Dependencies
 ```bash
 git clone https://github.com/AbhinavSharma-BLR/CarePath.git
 cd CarePath
-npm install -g pnpm
 pnpm install
 ```
 
-### 2. Copy Default Environment Variables
-We have provided default offline environment variables. Run this command to copy them into place:
+#### 2. Run Automatic Setup
+Run this single command to automatically configure all `.env` files (frontend, backend, database) and generate the Prisma Client:
 ```bash
-cp frontend/.env.example frontend/.env
-cp backend/.env.example backend/.env
+pnpm setup
+```
+*(Alternatively, you can manually copy `.env.example` files to `.env` in `backend/`, `frontend/`, and `database/`).*
+
+**IMPORTANT:** Open the newly created `.env` files in `backend/`, `frontend/`, and `database/` and replace the placeholder values (`your_supabase_...`) with your actual Supabase project credentials.
+
+#### 3. Setup the Database
+Push the Prisma schema to your connected database and seed it with demo accounts:
+```bash
+pnpm db:push
+pnpm db:seed
 ```
 
-### 3. Start Local Supabase (Docker)
-This will use Docker to spin up a local PostgreSQL database, Authentication, and Realtime server:
-```bash
-npx supabase start
-```
-*(Note: The first time you run this, it may take a few minutes to download the Docker images).*
-
-### 4. Setup the Database
-Push the Prisma schema to your newly created local database and seed it with demo accounts:
-```bash
-pnpm --filter @carepath/database run db:push
-pnpm --filter @carepath/backend run db:seed
-```
-
-### 5. Start the App
-Start both the Frontend and Backend simultaneously:
+#### 4. Start the Development Servers
+Start both the Frontend and Backend simultaneously using Turborepo:
 ```bash
 pnpm dev
 ```
 
-### 6. Explore the Platform
-- Open [http://localhost:3000](http://localhost:3000) to view the main Landing Page.
-- Try logging in to explore the Role-Based Dashboards!
+- **Frontend**: [http://localhost:3000](http://localhost:3000)
+- **Backend API**: [http://localhost:3001](http://localhost:3001)
 
-**Demo Accounts (Use OTP: `123456` for all logins):**
+---
+
+### 🔑 Demo Accounts (Use OTP: `123456` for all logins)
+
 - **Patient Account**: `9876543210`
 - **Doctor Account**: `9876543211`
 - **Admin Account**: `9876543212`
 
-> **When you're done testing:** You can shut down the local database by running `npx supabase stop`.
+---
+
+### 🐳 Alternative: Running 100% Offline with Local Docker Supabase
+
+If you prefer to run a completely offline local Supabase container instead of using the cloud database:
+
+1. **Install and open [Docker Desktop](https://www.docker.com/products/docker-desktop/)** on your machine.
+2. Start the local Supabase containers:
+   ```bash
+   npx supabase start
+   ```
+3. Update your `DATABASE_URL` in `backend/.env` and `database/.env`:
+   ```env
+   DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres
+   ```
+4. Push and seed the database:
+   ```bash
+   pnpm db:push
+   pnpm db:seed
+   ```
+5. When done testing, stop the containers with `npx supabase stop`.
+
+> **Troubleshooting: `docker: command not found (podman also not found)`**  
+> If you encounter this error, it means Docker Desktop is not installed or not running on your system. You **do not need Docker** to run CarePath! Simply follow the [Quick Start](#quick-start-zero-docker--ready-to-run) above using `pnpm setup` and `pnpm dev`.
+

@@ -34,3 +34,7 @@ pnpm-debug.log*
 # OS
 .DS_Store
 Thumbs.db
+
+# Nested clone ignore
+CarePath/
+

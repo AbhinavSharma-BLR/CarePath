@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {
+    "predb:generate": "node -e \"const fs=require('fs'); if(!fs.existsSync('.env') && fs.existsSync('../backend/.env')) fs.copyFileSync('../backend/.env', '.env'); if(!fs.existsSync('.env') && fs.existsSync('.env.example')) fs.copyFileSync('.env.example', '.env');\"",
     "db:generate": "prisma generate",
+    "predb:push": "node -e \"const fs=require('fs'); if(!fs.existsSync('.env') && fs.existsSync('../backend/.env')) fs.copyFileSync('../backend/.env', '.env'); if(!fs.existsSync('.env') && fs.existsSync('.env.example')) fs.copyFileSync('.env.example', '.env');\"",
     "db:push": "prisma db push",
+    "predb:studio": "node -e \"const fs=require('fs'); if(!fs.existsSync('.env') && fs.existsSync('../backend/.env')) fs.copyFileSync('../backend/.env', '.env'); if(!fs.existsSync('.env') && fs.existsSync('.env.example')) fs.copyFileSync('.env.example', '.env');\"",
     "db:studio": "prisma studio",
     "lint": "eslint ."
   },

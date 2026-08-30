@@ -2,6 +2,7 @@
   "name": "carepath-monorepo",
   "private": true,
   "scripts": {
+    "setup": "node scripts/setup-env.js && turbo db:generate",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
@@ -17,12 +18,7 @@
     "turbo": "^1.13.0",
     "typescript": "^5.4.5"
   },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "18.3.3",
-      "@types/react-dom": "18.3.0"
-    }
-  },
+
   "engines": {
     "node": ">=20.0.0",
     "pnpm": ">=8.0.0"
